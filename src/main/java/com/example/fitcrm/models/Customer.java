@@ -1,7 +1,12 @@
 package com.example.fitcrm.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,18 +22,25 @@ import java.util.Date;
 public class Customer {
     @Id
     private String id;
+    @NotBlank
+    @Length(min = 3)
     private String name;
+    @NotBlank
     private String documentType;
+    @NotNull
     @Indexed(unique = true)
     private long documentNumber;
-    @DateTimeFormat(pattern = "dd-mm-yyyy")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date birthDate;
     private int age;
     private String address;
+    @NotBlank
     @Indexed(unique = true)
     private String email;
+    @NotNull
     private long phone;
+    @NotNull
     private int remainingDays;
     private EmergencyContact emergencyContact;
     private MedicInformation medicInformation;
