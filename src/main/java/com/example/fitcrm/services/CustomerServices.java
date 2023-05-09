@@ -88,8 +88,9 @@ public class CustomerServices {
     public void sendReminderMail(Customer customer) {
         String addressee = customer.getEmail();
         String subject = "Remaining days in your gym plan!";
-        String messageBody = "You have " + customer.getRemainingDays() + " days left.Remember to renew your plan";
+        String messageBody = "You have " + customer.getRemainingDays() + " days left. Remember to renew your plan";
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("fitcrm.empresariales@gmail.com");
         message.setTo(addressee);
         message.setSubject(subject);
         message.setText(messageBody);

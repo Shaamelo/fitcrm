@@ -16,7 +16,7 @@ public class EmailController {
     private EmailServices emailServices;
 
     @PostMapping
-    public ResponseEntity<String> enviarCorreo(@RequestBody MailRequest mailRequest) {
+    public ResponseEntity<String> sendMail(@RequestBody MailRequest mailRequest) {
         emailServices.SendMail(mailRequest.getAddressee(), mailRequest.getSubject(), mailRequest.getBody());
         return ResponseEntity.ok("Mail sent successfully");
     }

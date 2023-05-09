@@ -13,6 +13,7 @@ public class EmailServices{
 
     public void SendMail(String addressee, String subject, String messageBody) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("fitcrm.empresariales@gmail.com");
         message.setTo(addressee);
         message.setSubject(subject);
         message.setText(messageBody);
