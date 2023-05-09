@@ -5,6 +5,8 @@ import com.example.fitcrm.exceptions.ResourceNotFoundException;
 import com.example.fitcrm.models.Customer;
 import com.example.fitcrm.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 public class CustomerServices {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private JavaMailSender mailSender;
 
 
     public Customer createCustomer(Customer customer) {
@@ -74,7 +78,7 @@ public class CustomerServices {
     public void sendReminderRemainingDays() {
         List<Customer> customers = customerRepository.findAll();
         for (Customer customer : customers) {
-            if (customer.getRemainingDays() <= 5) {
+            if (customer.getRemainingDays() <= 5 && customer.getRemainingDays() >= 0) {
                 sendReminderMail(customer);
             }
         }
@@ -82,10 +86,15 @@ public class CustomerServices {
 
 
     public void sendReminderMail(Customer customer) {
-        String adressee = customer.getEmail();
-        String subject = "Remainding days in your gym plan!";
-        String message = "You have " + customer.getRemainingDays() + " days left.Remember to renew your plan";
-        //TODO: lógica para enviar correo con javaMail
+        String addressee = customer.getEmail();
+        String subject = "Remaining days in your gym plan!";
+        String messageBody = "You have " + customer.getRemainingDays() + " days left.Remember to renew your plan";
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(addressee);
+        message.setSubject(subject);
+        message.setText(messageBody);
+        mailSender.send(message);
+
     }
 
 
