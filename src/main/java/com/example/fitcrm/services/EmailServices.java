@@ -1,17 +1,18 @@
 package com.example.fitcrm.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class EmailServices{
 
-    @Autowired
-    private JavaMailSender mailSender;
 
-    public void SendMail(String addressee, String subject, String messageBody) {
+    private final JavaMailSender mailSender;
+
+    public void sendMail(String addressee, String subject, String messageBody) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("fitcrm.empresariales@gmail.com");
         message.setTo(addressee);

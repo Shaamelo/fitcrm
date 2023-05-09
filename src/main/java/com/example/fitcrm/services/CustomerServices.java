@@ -4,7 +4,7 @@ import com.example.fitcrm.exceptions.CustomerAlreadyExistsException;
 import com.example.fitcrm.exceptions.ResourceNotFoundException;
 import com.example.fitcrm.models.Customer;
 import com.example.fitcrm.repositories.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,10 +17,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerServices {
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
+
+    private final CustomerRepository customerRepository;
     private JavaMailSender mailSender;
 
 

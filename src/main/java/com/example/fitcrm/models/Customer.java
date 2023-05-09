@@ -1,10 +1,8 @@
 package com.example.fitcrm.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;

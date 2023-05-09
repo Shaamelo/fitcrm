@@ -2,27 +2,24 @@ package com.example.fitcrm.controllers;
 
 import com.example.fitcrm.models.Customer;
 import com.example.fitcrm.services.CustomerServices;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/customers")
 public class CustomerController {
-    @Autowired
-    private CustomerServices customerServices;
+
+    private final CustomerServices customerServices;
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         Customer createdCustomer = customerServices.createCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
