@@ -2,7 +2,6 @@ package com.example.fitcrm.repositories;
 
 import com.example.fitcrm.models.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
-
 import java.util.Optional;
 
 public interface CustomerRepository extends MongoRepository<Customer, String> {

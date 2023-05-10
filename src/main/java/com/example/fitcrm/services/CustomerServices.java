@@ -9,7 +9,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executors;
@@ -24,6 +24,7 @@ public class CustomerServices {
     private JavaMailSender mailSender;
 
 
+    @Transactional
     public Customer createCustomer(Customer customer) {
         Optional<Customer> existingCustomer = customerRepository.findCustomerByDocumentNumber(customer.getDocumentNumber());
         if (existingCustomer.isPresent()) {

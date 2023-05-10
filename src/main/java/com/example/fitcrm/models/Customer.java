@@ -1,15 +1,13 @@
 package com.example.fitcrm.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -20,12 +18,12 @@ import java.util.Date;
 public class Customer {
     @Id
     private String id;
-    @NotBlank
-    @Length(min = 3)
+    @NotBlank(message = "Name is mandatory")
+    @Length(min = 3, message = "Name should have at least 3 characters")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Document Type is mandatory")
     private String documentType;
-    @NotNull
+    @Positive(message = "Document number is mandatory")
     @Indexed(unique = true)
     private long documentNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,12 +31,13 @@ public class Customer {
     private Date birthDate;
     private int age;
     private String address;
-    @NotBlank
+    @NotBlank(message = "Email is mandatory")
+    @Email
     @Indexed(unique = true)
     private String email;
-    @NotNull
+    @PositiveOrZero(message = "Phone is mandatory")
     private long phone;
-    @NotNull
+    @PositiveOrZero(message = "Remaining days are mandatory")
     private int remainingDays;
     private EmergencyContact emergencyContact;
     private MedicInformation medicInformation;

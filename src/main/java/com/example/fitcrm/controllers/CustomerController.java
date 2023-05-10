@@ -2,6 +2,7 @@ package com.example.fitcrm.controllers;
 
 import com.example.fitcrm.models.Customer;
 import com.example.fitcrm.services.CustomerServices;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class CustomerController {
     private final CustomerServices customerServices;
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
         Customer createdCustomer = customerServices.createCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
@@ -60,7 +61,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable String id, @RequestBody Customer customer) {
+    public ResponseEntity<Customer> updateCustomer(@PathVariable String id, @Valid @RequestBody Customer customer) {
         Optional<Customer> customerOptional = customerServices.getCustomerById(id);
         if (customerOptional.isPresent()) {
             Customer updatedCustomer = customerServices.updateCustomer(id, customer);
