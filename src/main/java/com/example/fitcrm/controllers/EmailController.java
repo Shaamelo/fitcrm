@@ -3,6 +3,7 @@ package com.example.fitcrm.controllers;
 import com.example.fitcrm.models.MailRequest;
 import com.example.fitcrm.services.EmailServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,6 @@ public class EmailController {
     @PostMapping
     public ResponseEntity<String> sendMail(@RequestBody MailRequest mailRequest) {
         emailServices.sendMail(mailRequest.getAddressee(), mailRequest.getSubject(), mailRequest.getBody());
-        return ResponseEntity.ok("Mail sent successfully");
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
